@@ -73,5 +73,22 @@ namespace ToDoApp_WebApi.Controllers
                 return Ok(toDoTask);
             }
         }
+
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IActionResult DeleteToDoTask(int id)
+        {
+            var toDoTask = dbContext.ToDoTasks.Find(id);
+            if (toDoTask == null)
+            {
+                return NotFound("НИЧЕГО!!!!!!");
+            }
+            else
+            {
+                dbContext.Remove(toDoTask);
+                dbContext.SaveChanges();
+                return Ok("Удалили!");
+            }
+        }
     }
 }
